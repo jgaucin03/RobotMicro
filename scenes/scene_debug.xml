@@ -213,24 +213,24 @@
                     <geom
                         name="door_face_front"
                         type="box"
-                        size="0.25 0.001 0.16"
-                        pos="-0.08 -0.061 0.165"
+                        size="0.2869 0.001 0.16"
+                        pos="-0.0441 -0.06983 0.165"
                         class="soft_contact"
-                        rgba="0.7 0.7 0.7 0.12"/>
+                        rgba="0.7 0 0 0.12"/>
 
                     <geom
                         name="door_face_back"
                         type="box"
-                        size="0.25 0.001 0.16"
-                        pos="-0.08 -0.019 0.165"
+                        size="0.2869 0.001 0.16"
+                        pos="-0.0441 -0.00003 0.165"
                         class="soft_contact"
-                        rgba="0.7 0.7 0.7 0.12"/>
+                        rgba="0.5 0 0 0.12"/>
 
                     <geom
                         name="door_face_left"
                         type="box"
-                        size="0.001 0.02 0.16"
-                        pos="-0.331 -0.04 0.165"
+                        size="0.001 0.0349 0.16"
+                        pos="-0.331 -0.03493 0.165"
                         class="soft_contact"
                         rgba="0.7 0.7 0.7 0.12"/>
 
@@ -245,16 +245,16 @@
                     <geom
                         name="door_face_top"
                         type="box"
-                        size="0.25 0.02 0.001"
-                        pos="-0.08 -0.04 0.326"
+                        size="0.2869 0.0349 0.001"
+                        pos="-0.0441 -0.03493 0.325"
                         class="soft_contact"
                         rgba="0.7 0.7 0.7 0.12"/>
 
                     <geom
                         name="door_face_bottom"
                         type="box"
-                        size="0.25 0.02 0.001"
-                        pos="-0.08 -0.04 0.004"
+                        size="0.2869 0.0349 0.001"
+                        pos="-0.0441 -0.03493 0.005"
                         class="soft_contact"
                         rgba="0.7 0.7 0.7 0.12"/>
                 </body>
