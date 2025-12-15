@@ -1,0 +1,1914 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Bold;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red155\green35\blue147;\red255\green255\blue255;\red129\green95\blue3;
+\red196\green26\blue22;\red0\green0\blue0;\red93\green108\blue121;}
+{\*\expandedcolortbl;;\csgenericrgb\c60759\c13753\c57628;\csgenericrgb\c100000\c100000\c100000;\csgenericrgb\c50580\c37140\c1210;
+\csgenericrgb\c77000\c10200\c8600;\csgenericrgb\c0\c0\c0\c85000;\csgenericrgb\c36526\c42188\c47515;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab593
+\pard\tx593\pardeftab593\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf2 \cb3 <mujoco 
+\f1\b0 \cf4 model
+\f0\b \cf2 =
+\f1\b0 \cf5 "UR3_Gripper_Debug_Scene"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+    
+\f0\b \cf2 <compiler 
+\f1\b0 \cf4 angle
+\f0\b \cf2 =
+\f1\b0 \cf5 "radian"
+\f0\b \cf2  
+\f1\b0 \cf4 meshdir
+\f0\b \cf2 =
+\f1\b0 \cf5 "../"
+\f0\b \cf2  
+\f1\b0 \cf4 balanceinertia
+\f0\b \cf2 =
+\f1\b0 \cf5 "true"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+    
+\f0\b \cf2 <option 
+\f1\b0 \cf4 timestep
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.0005"
+\f0\b \cf2  
+\f1\b0 \cf4 integrator
+\f0\b \cf2 =
+\f1\b0 \cf5 "RK4"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+    
+\f0\b \cf2 <default>
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 solimp
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.99 0.99 0.001"
+\f0\b \cf2  
+\f1\b0 \cf4 solref
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 1"
+\f0\b \cf2  
+\f1\b0 \cf4 margin
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001"
+\f0\b \cf2  
+\f1\b0 \cf4 friction
+\f0\b \cf2 =
+\f1\b0 \cf5 "1 0.005 0.0001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 armature
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.01"
+\f0\b \cf2  
+\f1\b0 \cf4 damping
+\f0\b \cf2 =
+\f1\b0 \cf5 "1"
+\f0\b \cf2  
+\f1\b0 \cf4 stiffness
+\f0\b \cf2 =
+\f1\b0 \cf5 "0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        \
+        \cf7 <!-- Class-specific override -->\cf6 \
+        
+\f0\b \cf2 <default 
+\f1\b0 \cf4 class
+\f0\b \cf2 =
+\f1\b0 \cf5 "soft_contact"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+            \cf7 <!-- Slightly softer, more damped contact than MuJoCo default -->\cf6 \
+            \cf7 <!-- solref = [timeconst dampratio]; larger timeconst => softer -->\cf6 \
+            
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 solref
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.04 1.0"\cf6 \
+
+\f0\b \cf2                     
+\f1\b0 \cf4 solimp
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.9 0.95 0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 </default>
+\f1\b0 \cf6 \
+    
+\f0\b \cf2 </default>
+\f1\b0 \cf6 \
+    
+\f0\b \cf2 <visual>
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <global 
+\f1\b0 \cf4 offwidth
+\f0\b \cf2 =
+\f1\b0 \cf5 "1920"
+\f0\b \cf2  
+\f1\b0 \cf4 offheight
+\f0\b \cf2 =
+\f1\b0 \cf5 "1080"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <quality 
+\f1\b0 \cf4 shadowsize
+\f0\b \cf2 =
+\f1\b0 \cf5 "4096"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+    
+\f0\b \cf2 </visual>
+\f1\b0 \cf6 \
+    
+\f0\b \cf2 <asset>
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <texture 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "grid"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "2d"
+\f0\b \cf2  
+\f1\b0 \cf4 builtin
+\f0\b \cf2 =
+\f1\b0 \cf5 "checker"
+\f0\b \cf2  
+\f1\b0 \cf4 rgb1
+\f0\b \cf2 =
+\f1\b0 \cf5 ".1 .2 .3"
+\f0\b \cf2  
+\f1\b0 \cf4 rgb2
+\f0\b \cf2 =
+\f1\b0 \cf5 ".2 .3 .4"
+\f0\b \cf2  
+\f1\b0 \cf4 width
+\f0\b \cf2 =
+\f1\b0 \cf5 "300"
+\f0\b \cf2  
+\f1\b0 \cf4 height
+\f0\b \cf2 =
+\f1\b0 \cf5 "300"
+\f0\b \cf2  
+\f1\b0 \cf4 mark
+\f0\b \cf2 =
+\f1\b0 \cf5 "edge"
+\f0\b \cf2  
+\f1\b0 \cf4 markrgb
+\f0\b \cf2 =
+\f1\b0 \cf5 ".2 .3 .4"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <material 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "grid"
+\f0\b \cf2  
+\f1\b0 \cf4 texture
+\f0\b \cf2 =
+\f1\b0 \cf5 "grid"
+\f0\b \cf2  
+\f1\b0 \cf4 texrepeat
+\f0\b \cf2 =
+\f1\b0 \cf5 "2 2"
+\f0\b \cf2  
+\f1\b0 \cf4 texuniform
+\f0\b \cf2 =
+\f1\b0 \cf5 "true"
+\f0\b \cf2  
+\f1\b0 \cf4 reflectance
+\f0\b \cf2 =
+\f1\b0 \cf5 ".2"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <material 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "table_mat"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.6 0.4 0.2 1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <material 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "gripper_mat"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.2 0.2 0.2 1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <material 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "micro_mat"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.5 0.5 0.5 1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <mesh 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "base_link-v3"
+\f0\b \cf2  
+\f1\b0 \cf4 file
+\f0\b \cf2 =
+\f1\b0 \cf5 "ur3_v2/meshes/base_link-v3.stl"
+\f0\b \cf2  
+\f1\b0 \cf4 scale
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 0.001 0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <mesh 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link1-v4"
+\f0\b \cf2  
+\f1\b0 \cf4 file
+\f0\b \cf2 =
+\f1\b0 \cf5 "ur3/meshes/link1-v4.stl"
+\f0\b \cf2  
+\f1\b0 \cf4 scale
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 0.001 0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <mesh 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link2-v3"
+\f0\b \cf2  
+\f1\b0 \cf4 file
+\f0\b \cf2 =
+\f1\b0 \cf5 "ur3/meshes/link2-v3.stl"
+\f0\b \cf2  
+\f1\b0 \cf4 scale
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 0.001 0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <mesh 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link3-v3"
+\f0\b \cf2  
+\f1\b0 \cf4 file
+\f0\b \cf2 =
+\f1\b0 \cf5 "ur3/meshes/link3-v3.stl"
+\f0\b \cf2  
+\f1\b0 \cf4 scale
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 0.001 0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <mesh 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link4-v3"
+\f0\b \cf2  
+\f1\b0 \cf4 file
+\f0\b \cf2 =
+\f1\b0 \cf5 "ur3/meshes/link4-v3.stl"
+\f0\b \cf2  
+\f1\b0 \cf4 scale
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 0.001 0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <mesh 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link5-v3"
+\f0\b \cf2  
+\f1\b0 \cf4 file
+\f0\b \cf2 =
+\f1\b0 \cf5 "ur3/meshes/link5-v3.stl"
+\f0\b \cf2  
+\f1\b0 \cf4 scale
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 0.001 0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <mesh 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link6-v3"
+\f0\b \cf2  
+\f1\b0 \cf4 file
+\f0\b \cf2 =
+\f1\b0 \cf5 "ur3/meshes/link6-v3.stl"
+\f0\b \cf2  
+\f1\b0 \cf4 scale
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 0.001 0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <mesh 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "Left_Grip"
+\f0\b \cf2  
+\f1\b0 \cf4 file
+\f0\b \cf2 =
+\f1\b0 \cf5 "ur3/meshes/Left_Grip.stl"
+\f0\b \cf2  
+\f1\b0 \cf4 scale
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 0.001 0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <mesh 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "Right_Grip"
+\f0\b \cf2  
+\f1\b0 \cf4 file
+\f0\b \cf2 =
+\f1\b0 \cf5 "ur3/meshes/Right_Grip.stl"
+\f0\b \cf2  
+\f1\b0 \cf4 scale
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 0.001 0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <mesh 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "micro_Base"
+\f0\b \cf2  
+\f1\b0 \cf4 file
+\f0\b \cf2 =
+\f1\b0 \cf5 "Microwave/meshes/Base.stl"
+\f0\b \cf2  
+\f1\b0 \cf4 scale
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 0.001 0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <mesh 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "micro_BaseJoint"
+\f0\b \cf2  
+\f1\b0 \cf4 file
+\f0\b \cf2 =
+\f1\b0 \cf5 "Microwave/meshes/BaseJoint.stl"
+\f0\b \cf2  
+\f1\b0 \cf4 scale
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 0.001 0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <mesh 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "Cup_mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 file
+\f0\b \cf2 =
+\f1\b0 \cf5 "Cup/meshes/Cup-Noodles.stl"
+\f0\b \cf2  
+\f1\b0 \cf4 scale
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 0.001 0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+    
+\f0\b \cf2 </asset>
+\f1\b0 \cf6 \
+\
+    
+\f0\b \cf2 <sensor>
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <touch 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "button_force_sensor"
+\f0\b \cf2  
+\f1\b0 \cf4 site
+\f0\b \cf2 =
+\f1\b0 \cf5 "btn_touch_surface"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+    
+\f0\b \cf2 </sensor>
+\f1\b0 \cf6 \
+\
+    
+\f0\b \cf2 <actuator>
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <position 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "shoulder_pan_servo"
+\f0\b \cf2  
+\f1\b0 \cf4 joint
+\f0\b \cf2 =
+\f1\b0 \cf5 "shoulder_pan"
+\f0\b \cf2  
+\f1\b0 \cf4 kp
+\f0\b \cf2 =
+\f1\b0 \cf5 "500"
+\f0\b \cf2  
+\f1\b0 \cf4 kv
+\f0\b \cf2 =
+\f1\b0 \cf5 "50"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <position 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "shoulder_lift_servo"
+\f0\b \cf2  
+\f1\b0 \cf4 joint
+\f0\b \cf2 =
+\f1\b0 \cf5 "shoulder_lift"
+\f0\b \cf2  
+\f1\b0 \cf4 kp
+\f0\b \cf2 =
+\f1\b0 \cf5 "500"
+\f0\b \cf2  
+\f1\b0 \cf4 kv
+\f0\b \cf2 =
+\f1\b0 \cf5 "50"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <position 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "elbow_servo"
+\f0\b \cf2  
+\f1\b0 \cf4 joint
+\f0\b \cf2 =
+\f1\b0 \cf5 "elbow"
+\f0\b \cf2  
+\f1\b0 \cf4 kp
+\f0\b \cf2 =
+\f1\b0 \cf5 "500"
+\f0\b \cf2  
+\f1\b0 \cf4 kv
+\f0\b \cf2 =
+\f1\b0 \cf5 "50"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        \
+        
+\f0\b \cf2 <position 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "wrist_1_servo"
+\f0\b \cf2  
+\f1\b0 \cf4 joint
+\f0\b \cf2 =
+\f1\b0 \cf5 "wrist_1"
+\f0\b \cf2  
+\f1\b0 \cf4 kp
+\f0\b \cf2 =
+\f1\b0 \cf5 "200"
+\f0\b \cf2  
+\f1\b0 \cf4 kv
+\f0\b \cf2 =
+\f1\b0 \cf5 "20"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <position 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "wrist_2_servo"
+\f0\b \cf2  
+\f1\b0 \cf4 joint
+\f0\b \cf2 =
+\f1\b0 \cf5 "wrist_2"
+\f0\b \cf2  
+\f1\b0 \cf4 kp
+\f0\b \cf2 =
+\f1\b0 \cf5 "200"
+\f0\b \cf2  
+\f1\b0 \cf4 kv
+\f0\b \cf2 =
+\f1\b0 \cf5 "20"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <position 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "wrist_3_servo"
+\f0\b \cf2  
+\f1\b0 \cf4 joint
+\f0\b \cf2 =
+\f1\b0 \cf5 "wrist_3"
+\f0\b \cf2  
+\f1\b0 \cf4 kp
+\f0\b \cf2 =
+\f1\b0 \cf5 "200"
+\f0\b \cf2  
+\f1\b0 \cf4 kv
+\f0\b \cf2 =
+\f1\b0 \cf5 "20"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+\
+        
+\f0\b \cf2 <position 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "gripper_servo"
+\f0\b \cf2  
+\f1\b0 \cf4 joint
+\f0\b \cf2 =
+\f1\b0 \cf5 "link6_Grip-Driver"
+\f0\b \cf2  
+\f1\b0 \cf4 kp
+\f0\b \cf2 =
+\f1\b0 \cf5 "100"
+\f0\b \cf2  
+\f1\b0 \cf4 kv
+\f0\b \cf2 =
+\f1\b0 \cf5 "5"
+\f0\b \cf2  
+\f1\b0 \cf4 ctrlrange
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.8 0.5"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+    
+\f0\b \cf2 </actuator>
+\f1\b0 \cf6 \
+\
+    
+\f0\b \cf2 <worldbody>
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <light 
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 2"
+\f0\b \cf2  
+\f1\b0 \cf4 dir
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 -1"
+\f0\b \cf2  
+\f1\b0 \cf4 directional
+\f0\b \cf2 =
+\f1\b0 \cf5 "true"
+\f0\b \cf2  
+\f1\b0 \cf4 castshadow
+\f0\b \cf2 =
+\f1\b0 \cf5 "true"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <light 
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "1 1 2"
+\f0\b \cf2  
+\f1\b0 \cf4 dir
+\f0\b \cf2 =
+\f1\b0 \cf5 "-1 -1 -1"
+\f0\b \cf2  
+\f1\b0 \cf4 diffuse
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.5 0.5 0.5"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "floor"
+\f0\b \cf2  
+\f1\b0 \cf4 size
+\f0\b \cf2 =
+\f1\b0 \cf5 "2 2 .05"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "plane"
+\f0\b \cf2  
+\f1\b0 \cf4 material
+\f0\b \cf2 =
+\f1\b0 \cf5 "grid"
+\f0\b \cf2  
+\f1\b0 \cf4 condim
+\f0\b \cf2 =
+\f1\b0 \cf5 "3"
+\f0\b \cf2  
+\f1\b0 \cf4 group
+\f0\b \cf2 =
+\f1\b0 \cf5 "1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+\
+        
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "ur3_table"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "box"
+\f0\b \cf2  
+\f1\b0 \cf4 size
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.30559375 0.3048 0.01"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.00238125 0 0.01"
+\f0\b \cf2  
+\f1\b0 \cf4 material
+\f0\b \cf2 =
+\f1\b0 \cf5 "table_mat"
+\f0\b \cf2  
+\f1\b0 \cf4 mass
+\f0\b \cf2 =
+\f1\b0 \cf5 "50"
+\f0\b \cf2  
+\f1\b0 \cf4 group
+\f0\b \cf2 =
+\f1\b0 \cf5 "2"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+\
+        \cf7 <!-- <body name="Microwave_Assembly" pos="0.7254875 -0.2143125 0" euler="0 0 0"> -->\cf6 \
+\
+        
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "Microwave_Assembly"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.1145 -0.5575 0"
+\f0\b \cf2  
+\f1\b0 \cf4 euler
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 0"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+            \
+            
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 class
+\f0\b \cf2 =
+\f1\b0 \cf5 "soft_contact"
+\f0\b \cf2  
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "micro_table"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "box"
+\f0\b \cf2  
+\f1\b0 \cf4 size
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.422275 0.2524125 0.01396875"
+\f0\b \cf2  
+\f1\b0 \cf6 \
+
+\f0\b \cf2                   
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 0.01396875"
+\f0\b \cf2  
+\f1\b0 \cf4 material
+\f0\b \cf2 =
+\f1\b0 \cf5 "table_mat"
+\f0\b \cf2  
+\f1\b0 \cf4 mass
+\f0\b \cf2 =
+\f1\b0 \cf5 "50"
+\f0\b \cf2  
+\f1\b0 \cf4 group
+\f0\b \cf2 =
+\f1\b0 \cf5 "2"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+\
+            
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "Microwave"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 0.0279375"
+\f0\b \cf2  
+\f1\b0 \cf4 euler
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 3.141592653589793"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "micro_Base_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 mesh
+\f0\b \cf2 =
+\f1\b0 \cf5 "micro_Base"
+\f0\b \cf2  
+\f1\b0 \cf4 material
+\f0\b \cf2 =
+\f1\b0 \cf5 "micro_mat"
+\f0\b \cf2  
+\f1\b0 \cf4 contype
+\f0\b \cf2 =
+\f1\b0 \cf5 "0"
+\f0\b \cf2  
+\f1\b0 \cf4 conaffinity
+\f0\b \cf2 =
+\f1\b0 \cf5 "0"
+\f0\b \cf2  
+\f1\b0 \cf4 group
+\f0\b \cf2 =
+\f1\b0 \cf5 "2"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 <inertial 
+\f1\b0 \cf4 mass
+\f0\b \cf2 =
+\f1\b0 \cf5 "15.0"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.04 0.16 0.23"
+\f0\b \cf2  
+\f1\b0 \cf4 fullinertia
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.1 0.1 0.1 0 0 0"
+\f0\b \cf2 />
+\f1\b0 \cf6  \
+                \
+                
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "cup_target"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.125 0.062 0.1"
+\f0\b \cf2  
+\f1\b0 \cf4 euler
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 0"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "cup_target_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "sphere"
+\f0\b \cf2  
+\f1\b0 \cf4 size
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.01"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.12 0.3 1 1"
+\f0\b \cf2  
+\f1\b0 \cf4 contype
+\f0\b \cf2 =
+\f1\b0 \cf5 "0"
+\f0\b \cf2  
+\f1\b0 \cf4 conaffinity
+\f0\b \cf2 =
+\f1\b0 \cf5 "0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <site 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "cup_target_site"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 0"
+\f0\b \cf2  
+\f1\b0 \cf4 size
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.01"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "1 0 0 0.5"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+\
+                
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "Microwave_Door"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 0"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "door_joint"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "hinge"
+\f0\b \cf2  
+\f1\b0 \cf4 axis
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 1"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.377 0 0.165"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "micro_door_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 mesh
+\f0\b \cf2 =
+\f1\b0 \cf5 "micro_BaseJoint"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.2 0.2 0.2 1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <site 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "handle_centroid"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.219075 -0.085 0.180"
+\f0\b \cf2  
+\f1\b0 \cf4 size
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.01"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 1 1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+\
+                
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "button_open"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.314325 -0.07 0.0541"
+\f0\b \cf2  
+\f1\b0 \cf4 euler
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 0"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "button_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "sphere"
+\f0\b \cf2  
+\f1\b0 \cf4 size
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.01"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 1 0 1"
+\f0\b \cf2  
+\f1\b0 \cf4 contype
+\f0\b \cf2 =
+\f1\b0 \cf5 "0"
+\f0\b \cf2  
+\f1\b0 \cf4 conaffinity
+\f0\b \cf2 =
+\f1\b0 \cf5 "0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "btn_joint"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "slide"
+\f0\b \cf2  
+\f1\b0 \cf4 axis
+\f0\b \cf2 =
+\f1\b0 \cf5 "1 0 0"
+\f0\b \cf2  
+\f1\b0 \cf4 range
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0.02"
+\f0\b \cf2  
+\f1\b0 \cf4 stiffness
+\f0\b \cf2 =
+\f1\b0 \cf5 "500"
+\f0\b \cf2  
+\f1\b0 \cf4 springref
+\f0\b \cf2 =
+\f1\b0 \cf5 "0"
+\f0\b \cf2  
+\f1\b0 \cf4 damping
+\f0\b \cf2 =
+\f1\b0 \cf5 "10"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <site 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "btn_touch_surface"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 0"
+\f0\b \cf2  
+\f1\b0 \cf4 size
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.01"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "1 0 0 0.5"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+            
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+\
+            
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "Cup"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.3754875 0.2143125 0.03"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "cup_x"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "slide"
+\f0\b \cf2  
+\f1\b0 \cf4 axis
+\f0\b \cf2 =
+\f1\b0 \cf5 "1 0 0"
+\f0\b \cf2  
+\f1\b0 \cf4 damping
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.01"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "cup_y"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "slide"
+\f0\b \cf2  
+\f1\b0 \cf4 axis
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 1 0"
+\f0\b \cf2  
+\f1\b0 \cf4 damping
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.01"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "cup_z"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "slide"
+\f0\b \cf2  
+\f1\b0 \cf4 axis
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 1"
+\f0\b \cf2  
+\f1\b0 \cf4 damping
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.01"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "cup_rot"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "ball"
+\f0\b \cf2  
+\f1\b0 \cf4 damping
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.01"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                \
+                
+\f0\b \cf2 <inertial 
+\f1\b0 \cf4 mass
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.68"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 0.067"
+\f0\b \cf2  
+\f1\b0 \cf4 fullinertia
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.0015 0.0015 0.001 0 0 0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+\
+                
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "cup_mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 mesh
+\f0\b \cf2 =
+\f1\b0 \cf5 "Cup_mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 material
+\f0\b \cf2 =
+\f1\b0 \cf5 "gripper_mat"
+\f0\b \cf2  
+\f1\b0 \cf6 \
+
+\f0\b \cf2                       
+\f1\b0 \cf4 contype
+\f0\b \cf2 =
+\f1\b0 \cf5 "0"
+\f0\b \cf2  
+\f1\b0 \cf4 conaffinity
+\f0\b \cf2 =
+\f1\b0 \cf5 "0"
+\f0\b \cf2  
+\f1\b0 \cf4 group
+\f0\b \cf2 =
+\f1\b0 \cf5 "2"
+\f0\b \cf2  
+\f1\b0 \cf4 density
+\f0\b \cf2 =
+\f1\b0 \cf5 "0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+\
+                
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 class
+\f0\b \cf2 =
+\f1\b0 \cf5 "soft_contact"
+\f0\b \cf2  
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "cup_col"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "cylinder"
+\f0\b \cf2  
+\f1\b0 \cf4 size
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.045 0.06"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 0.06"
+\f0\b \cf2  
+\f1\b0 \cf6 \
+
+\f0\b \cf2                       
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "1 0 0 0.3"
+\f0\b \cf2  
+\f1\b0 \cf4 friction
+\f0\b \cf2 =
+\f1\b0 \cf5 "1 0.005 0.0001"
+\f0\b \cf2  
+\f1\b0 \cf4 group
+\f0\b \cf2 =
+\f1\b0 \cf5 "2"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                \
+                
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "cup_grip_target"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 -0.05 0.03"
+\f0\b \cf2  
+\f1\b0 \cf4 euler
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 0"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "cup_grip_target_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "sphere"
+\f0\b \cf2  
+\f1\b0 \cf4 size
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.01"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.125 0 0.7 1"
+\f0\b \cf2  
+\f1\b0 \cf4 contype
+\f0\b \cf2 =
+\f1\b0 \cf5 "0"
+\f0\b \cf2  
+\f1\b0 \cf4 conaffinity
+\f0\b \cf2 =
+\f1\b0 \cf5 "0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <site 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "cup_grip_target_site"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 0"
+\f0\b \cf2  
+\f1\b0 \cf4 size
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.01"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "1 0 0 0.5"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+            
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+\
+        
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "ur3_base"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 0.0622"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+             
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "base_link_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 mesh
+\f0\b \cf2 =
+\f1\b0 \cf5 "base_link-v3"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.7 0.7 0.7 1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+            
+\f0\b \cf2 <inertial 
+\f1\b0 \cf4 mass
+\f0\b \cf2 =
+\f1\b0 \cf5 "4.81"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-5e-05 -0.016 0.003"
+\f0\b \cf2  
+\f1\b0 \cf4 fullinertia
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.006 0.006 0.008 0 0 0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+            
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link1"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.00017 -0.0211 0.1046"
+\f0\b \cf2  
+\f1\b0 \cf4 euler
+\f0\b \cf2 =
+\f1\b0 \cf5 "1.571 0 0"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "shoulder_pan"
+\f0\b \cf2  
+\f1\b0 \cf4 axis
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 1 0"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.0001 -0.0608 -0.004"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link1_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 mesh
+\f0\b \cf2 =
+\f1\b0 \cf5 "link1-v4"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.7 0.7 0.7 1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 <inertial 
+\f1\b0 \cf4 mass
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.31"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.0002 0.049 -0.009"
+\f0\b \cf2  
+\f1\b0 \cf4 fullinertia
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.0002 0.0004 0.0002 0 0 0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link2"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.0062 0.122 0.1108"
+\f0\b \cf2  
+\f1\b0 \cf4 euler
+\f0\b \cf2 =
+\f1\b0 \cf5 "-1.57 0 -3.14"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "shoulder_lift"
+\f0\b \cf2  
+\f1\b0 \cf4 axis
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 1 0"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.006 -0.0608 -0.117"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link2_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 mesh
+\f0\b \cf2 =
+\f1\b0 \cf5 "link2-v3"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.7 0.7 0.7 1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <inertial 
+\f1\b0 \cf4 mass
+\f0\b \cf2 =
+\f1\b0 \cf5 "8.39"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.003 0.006 0.052"
+\f0\b \cf2  
+\f1\b0 \cf4 fullinertia
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.051 0.052 0.007 0 0 0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link3"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.1004 0.0052 0.2402"
+\f0\b \cf2  
+\f1\b0 \cf4 euler
+\f0\b \cf2 =
+\f1\b0 \cf5 "-1.572 0.059 1.602"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                        
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "elbow"
+\f0\b \cf2  
+\f1\b0 \cf4 axis
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.03 -0.99 0.048"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.115 0.048 -0.003"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                        
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link3_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 mesh
+\f0\b \cf2 =
+\f1\b0 \cf5 "link3-v3"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.7 0.7 0.7 1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                        
+\f0\b \cf2 <inertial 
+\f1\b0 \cf4 mass
+\f0\b \cf2 =
+\f1\b0 \cf5 "7.52"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.002 0.006 0.001"
+\f0\b \cf2  
+\f1\b0 \cf4 fullinertia
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.005 0.055 0.057 0 0 0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                        
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link4"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.0938 0.0851 0.0067"
+\f0\b \cf2  
+\f1\b0 \cf4 euler
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.001 0 -0.079"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                            
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "wrist_1"
+\f0\b \cf2  
+\f1\b0 \cf4 axis
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.04 0.99 0.0003"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.0008 -0.038 -0.001"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                            
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link4_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 mesh
+\f0\b \cf2 =
+\f1\b0 \cf5 "link4-v3"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.7 0.7 0.7 1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                            
+\f0\b \cf2 <inertial 
+\f1\b0 \cf4 mass
+\f0\b \cf2 =
+\f1\b0 \cf5 "2.54"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.001 0.0002 -0.001"
+\f0\b \cf2  
+\f1\b0 \cf4 fullinertia
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.001 0.002 0.002 0 0 0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                            
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link5"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.0821 0.00004 -0.0009"
+\f0\b \cf2  
+\f1\b0 \cf4 euler
+\f0\b \cf2 =
+\f1\b0 \cf5 "-2.62 1.49 2.62"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                                
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "wrist_2"
+\f0\b \cf2  
+\f1\b0 \cf4 axis
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.048 -0.007 -0.99"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.002 0.002 0.036"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                                
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link5_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 mesh
+\f0\b \cf2 =
+\f1\b0 \cf5 "link5-v3"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.7 0.7 0.7 1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                                
+\f0\b \cf2 <inertial 
+\f1\b0 \cf4 mass
+\f0\b \cf2 =
+\f1\b0 \cf5 "2.54"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.0009 0.001 -0.001"
+\f0\b \cf2  
+\f1\b0 \cf4 fullinertia
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.002 0.001 0.002 0 0 0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                                
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link6"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.0003 0.0626 -0.0087"
+\f0\b \cf2  
+\f1\b0 \cf4 euler
+\f0\b \cf2 =
+\f1\b0 \cf5 "1.61 0.13 2.70"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                                    
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "wrist_3"
+\f0\b \cf2  
+\f1\b0 \cf4 axis
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.14 -0.01 -0.98"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.003 -0.0001 0.017"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                                    
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link6_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 mesh
+\f0\b \cf2 =
+\f1\b0 \cf5 "link6-v3"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.7 0.7 0.7 1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                                    
+\f0\b \cf2 <site 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "ee_site"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.046 0.0165 -0.216"
+\f0\b \cf2  
+\f1\b0 \cf4 size
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.01"
+\f0\b \cf2  
+\f1\b0 \cf4 rgba
+\f0\b \cf2 =
+\f1\b0 \cf5 "1 0 0 1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                                    
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "Left_Grip"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.00289 -0.00054 -0.0273"
+\f0\b \cf2  
+\f1\b0 \cf4 euler
+\f0\b \cf2 =
+\f1\b0 \cf5 "-1.498 -0.517 -2.967"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                                        
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link6_Grip-Driver"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "hinge"
+\f0\b \cf2  
+\f1\b0 \cf4 axis
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 1"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.016 -0.066 0.022"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                                        
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "Left_Grip_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 mesh
+\f0\b \cf2 =
+\f1\b0 \cf5 "Left_Grip"
+\f0\b \cf2  
+\f1\b0 \cf4 material
+\f0\b \cf2 =
+\f1\b0 \cf5 "gripper_mat"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                                        
+\f0\b \cf2 <inertial 
+\f1\b0 \cf4 mass
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.217"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.029 -0.128 0.023"
+\f0\b \cf2  
+\f1\b0 \cf4 fullinertia
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.0004 4.9e-05 0.0004 0 0 0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                                    
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+                                    
+\f0\b \cf2 <body 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "Right_Grip"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.00286 -0.00054 -0.0271"
+\f0\b \cf2  
+\f1\b0 \cf4 euler
+\f0\b \cf2 =
+\f1\b0 \cf5 "-1.498 -0.517 -2.967"
+\f0\b \cf2 >
+\f1\b0 \cf6 \
+                                        
+\f0\b \cf2 <joint 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "link6_Grip-Link"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "hinge"
+\f0\b \cf2  
+\f1\b0 \cf4 axis
+\f0\b \cf2 =
+\f1\b0 \cf5 "0 0 1"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.016 -0.066 0.017"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                                        
+\f0\b \cf2 <geom 
+\f1\b0 \cf4 name
+\f0\b \cf2 =
+\f1\b0 \cf5 "Right_Grip_geom"
+\f0\b \cf2  
+\f1\b0 \cf4 type
+\f0\b \cf2 =
+\f1\b0 \cf5 "mesh"
+\f0\b \cf2  
+\f1\b0 \cf4 mesh
+\f0\b \cf2 =
+\f1\b0 \cf5 "Right_Grip"
+\f0\b \cf2  
+\f1\b0 \cf4 material
+\f0\b \cf2 =
+\f1\b0 \cf5 "gripper_mat"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                                        
+\f0\b \cf2 <inertial 
+\f1\b0 \cf4 mass
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.239"
+\f0\b \cf2  
+\f1\b0 \cf4 pos
+\f0\b \cf2 =
+\f1\b0 \cf5 "-0.028 -0.123 0.023"
+\f0\b \cf2  
+\f1\b0 \cf4 fullinertia
+\f0\b \cf2 =
+\f1\b0 \cf5 "0.0004 5.2e-05 0.0005 0 0 0"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+                                    
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+                                
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+                            
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+                        
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+                    
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+                
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+            
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+        
+\f0\b \cf2 </body>
+\f1\b0 \cf6 \
+    
+\f0\b \cf2 </worldbody>
+\f1\b0 \cf6 \
+    
+\f0\b \cf2 <contact>
+\f1\b0 \cf6 \
+        \cf7 <!-- Disable self-contact between UR3 base and first link -->\cf6 \
+        
+\f0\b \cf2 <exclude 
+\f1\b0 \cf4 body1
+\f0\b \cf2 =
+\f1\b0 \cf5 "ur3_base"
+\f0\b \cf2  
+\f1\b0 \cf4 body2
+\f0\b \cf2 =
+\f1\b0 \cf5 "link1"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+\
+        \cf7 <!-- Disable contact between microwave table and door -->\cf6 \
+        
+\f0\b \cf2 <exclude 
+\f1\b0 \cf4 body1
+\f0\b \cf2 =
+\f1\b0 \cf5 "Microwave_Assembly"
+\f0\b \cf2  
+\f1\b0 \cf4 body2
+\f0\b \cf2 =
+\f1\b0 \cf5 "Microwave_Door"
+\f0\b \cf2 />
+\f1\b0 \cf6 \
+        \cf7 <!-- <exclude body1="Left_Grip" body2="Right_Grip"/> -->\cf6 \
+    
+\f0\b \cf2 </contact>
+\f1\b0 \cf6 \
+
+\f0\b \cf2 </mujoco>
+\f1\b0 \cf6 \
+}

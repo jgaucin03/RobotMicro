@@ -1,0 +1,115 @@
+#put the cup into the microwave
+
+shoulder_pan: 3.17
+shoulder_lift: -1.85 -1.79, , 
+elbow: 1.23
+wrist_1: -1.79
+wrist_2: -1.57
+wrist_3: -1.82
+
+shoulder_pan: 3.17
+shoulder_lift: -1.48 , 
+elbow: 1.23
+wrist_1: -1.79
+wrist_2: -1.57
+wrist_3: -1.82
+
+shoulder_pan: -1.57
+shoulder_lift: -1.48 , 
+elbow: 1.23
+wrist_1: -1.79
+wrist_2: -1.57
+wrist_3: -1.82
+
+shoulder_pan: -1.57
+shoulder_lift: -1.48 , 
+elbow: 1.26
+wrist_1: -1.79
+wrist_2: -1.57
+wrist_3: -1.82
+
+shoulder_pan: -1.57
+shoulder_lift: -1.48 , 
+elbow: 0.88
+wrist_1: -1.79
+wrist_2: -1.57
+wrist_3: -1.82
+
+shoulder_pan: -1.45
+shoulder_lift: -1.48 , 
+elbow: 0.88
+wrist_1: -1.79
+wrist_2: -1.57
+wrist_3: -1.82
+
+shoulder_pan: -1.45
+shoulder_lift: -1.48 , 
+elbow: 0.503
+wrist_1: -1.79
+wrist_2: -1.57
+wrist_3: -1.82
+
+shoulder_pan: -1.29
+shoulder_lift: -1.48 , 
+elbow: 0.0628
+wrist_1: -1.79
+wrist_2: -1.57
+wrist_3: -1.82
+
+shoulder_pan: -1.26
+shoulder_lift: -1.85 , 
+elbow: 0.0628
+wrist_1: -0.88
+wrist_2: -1.57
+wrist_3: -1.82
+
+
+# stage open the gripper
+
+# stage out of the microwave: intermediate step
+
+shoulder_pan: -1.26
+shoulder_lift: -1.85 , 
+elbow: 0.0628
+wrist_1: -0.88
+wrist_2: -1.57
+wrist_3: -1.82
+
+shoulder_pan: -1.26
+shoulder_lift: -1.38 , 
+elbow: 0.0628
+wrist_1: -0.88
+wrist_2: -1.57
+wrist_3: -1.82
+
+# close the gripper
+
+
+shoulder_pan: -1.26
+shoulder_lift: -1.38 , 
+elbow: 0.911
+wrist_1: -0.88
+wrist_2: -1.57
+wrist_3: -1.82
+
+shoulder_pan: -1.76
+shoulder_lift: -1.38 , 
+elbow: 0.911
+wrist_1: -0.88
+wrist_2: -1.57
+wrist_3: -1.82
+
+
+shoulder_pan: -1.76
+shoulder_lift: -1.38 , 
+elbow: 1.82
+wrist_1: -0.88
+wrist_2: -1.57
+wrist_3: -1.82
+
+shoulder_pan: -1.76
+shoulder_lift: 0.942 , 
+elbow: 1.82
+wrist_1: -0.88
+wrist_2: -1.57
+wrist_3: -1.82

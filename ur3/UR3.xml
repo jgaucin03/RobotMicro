@@ -1,0 +1,76 @@
+<mujoco model="UR3">
+    <compiler angle="radian" />
+    <asset>
+        <mesh name="link1-v4" file="meshes/link1-v4.stl" scale="0.001 0.001 0.001" />
+        <mesh name="base_link-v3" file="meshes/base_link-v3.stl" scale="0.001 0.001 0.001" />
+        <mesh name="link2-v3" file="meshes/link2-v3.stl" scale="0.001 0.001 0.001" />
+        <mesh name="link3-v3" file="meshes/link3-v3.stl" scale="0.001 0.001 0.001" />
+        <mesh name="link4-v3" file="meshes/link4-v3.stl" scale="0.001 0.001 0.001" />
+        <mesh name="link5-v3" file="meshes/link5-v3.stl" scale="0.001 0.001 0.001" />
+        <mesh name="link6-v3" file="meshes/link6-v3.stl" scale="0.001 0.001 0.001" />
+        <mesh name="Left_Grip" file="meshes/Left_Grip.stl" scale="0.001 0.001 0.001" />
+        <mesh name="Right_Grip" file="meshes/Right_Grip.stl" scale="0.001 0.001 0.001" />
+        <mesh name="Door" file="meshes/Door.stl" scale="0.001 0.001 0.001" />
+
+        <material name="gripper_mat" rgba="0.2 0.2 0.2 1"/>
+    </asset>
+    <worldbody>
+        <light directional="true" pos="-0.5 0.5 3" dir="0 0 -1" />
+        <geom pos="0 0 0" size="1 1 1" type="plane" rgba="1 0.83 0.61 0.5" />
+        
+        <body name="ur3_base" pos="0 0 0">
+            <geom name="base_vis" type="mesh" mesh="base_link-v3" rgba="0.7 0.7 0.7 1"/>
+            
+            <body name="link1" pos="0 0 0.1519" euler="0 0 3.14159265">
+                <joint name="shoulder_pan" axis="0 0 1" pos="0 0 0"/>
+                <geom name="link1_vis" type="mesh" mesh="link1-v4" pos="0 0 -0.1519" euler="0 0 3.14159" rgba="0.7 0.7 0.7 1"/>
+                <inertial mass="2.0" pos="0 0 0" fullinertia="0.008 0.008 0.002 0 0 0"/>
+                
+                <body name="link2" pos="0 0.1198 0" euler="1.570796327 0 0">
+                    <joint name="shoulder_lift" axis="0 1 0" pos="0 0 0"/>
+                    <geom name="link2_vis" type="mesh" mesh="link2-v3" pos="0 0 0.1198" euler="1.57 0 -1.57" rgba="0.7 0.7 0.7 1"/>
+                    <inertial mass="3.42" pos="0 0 0.12" fullinertia="0.02 0.02 0.007 0 0 0"/>
+                    
+                    <body name="link3" pos="0 -0.24365 0" euler="0 0 0">
+                        <joint name="elbow" axis="0 1 0" pos="0 0 0"/>
+                        <geom name="link3_vis" type="mesh" mesh="link3-v3" pos="0 0 0.027" euler="1.57 0 -1.57" rgba="0.7 0.7 0.7 1"/>
+                        <inertial mass="1.26" pos="0 0 0.1" fullinertia="0.002 0.002 0.001 0 0 0"/>
+                        
+                        <body name="link4" pos="0 -0.21325 0" euler="0 0 0">
+                            <joint name="wrist_1" axis="0 1 0" pos="0 0 0"/>
+                            <geom name="link4_vis" type="mesh" mesh="link4-v3" pos="0 0 -0.085" euler="1.57 0 -1.57" rgba="0.7 0.7 0.7 1"/>
+                            <inertial mass="0.8" pos="0 0 0" fullinertia="0.001 0.001 0.001 0 0 0"/>
+                            
+                            <body name="link5" pos="0 0.11235 0" euler="1.570796327 0 0">
+                                <joint name="wrist_2" axis="0 0 1" pos="0 0 0"/>
+                                <geom name="link5_vis" type="mesh" mesh="link5-v3" pos="0 0 -0.085" euler="0 0 0" rgba="0.7 0.7 0.7 1"/>
+                                <inertial mass="0.8" pos="0 0 0" fullinertia="0.001 0.001 0.001 0 0 0"/>
+                                
+                                <body name="link6" pos="0 0 0.08535" euler="-1.570796327 0 0">
+                                    <joint name="wrist_3" axis="0 1 0" pos="0 0 0"/>
+                                    <geom name="link6_vis" type="mesh" mesh="link6-v3" pos="0 0 -0.082" euler="1.57 0 0" rgba="0.7 0.7 0.7 1"/>
+                                    
+                                    <site name="ee_site" pos="0 0.0819 0" euler="-1.57079632 0 0" size="0.01" rgba="1 0 0 1"/> 
+                                    
+                                    <body name="Left_Grip" pos="0 0.082 0.016" euler="0 0 1.57">
+                                        <joint name="link6_Grip-Driver" type="hinge" axis="0 0 1" pos="0 0 0"/>
+                                        <geom name="Left_Grip_geom" type="mesh" mesh="Left_Grip" material="gripper_mat"/>
+                                    </body>
+                                    <body name="Right_Grip" pos="0 0.082 -0.016" euler="0 0 -1.57">
+                                        <joint name="link6_Grip-Link" type="hinge" axis="0 0 1" pos="0 0 0"/>
+                                        <geom name="Right_Grip_geom" type="mesh" mesh="Right_Grip" material="gripper_mat"/>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+    <!-- Put this near the bottom, before </mujoco> -->
+    <equality>
+        <!-- Open/close symmetrically: q_link = -q_driver -->
+        <joint joint1="link6_Grip-Driver" joint2="link6_Grip-Link" ratio="-1"/>
+    </equality>
+</mujoco>

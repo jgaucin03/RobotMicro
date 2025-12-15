@@ -1,0 +1,462 @@
+<mujoco model="UR3_Gripper_Debug_Scene">
+    <compiler angle="radian" meshdir="../" balanceinertia="true"/>
+    <option timestep="0.0005" integrator="RK4"/>
+    <default>
+        <geom solimp="0.99 0.99 0.001" solref="0.001 1" margin="0.001" friction="1 0.005 0.0001"/>
+        <joint armature="0.01" damping="1" stiffness="0"/>
+        
+        <!-- Class-specific override -->
+        <default class="soft_contact">
+            <!-- Slightly softer, more damped contact than MuJoCo default -->
+            <!-- solref = [timeconst dampratio]; larger timeconst => softer -->
+            <geom solref="0.04 1.0"
+                    solimp="0.9 0.95 0.001"/>
+        </default>
+
+        <default class="jaw_contact">
+            <geom
+                solref="0.02 1.0"
+                solimp="0.9 0.95 0.001"
+                margin="0.0015"
+                friction="1.2 0.05 0.0001"
+                condim="3"
+                contype="3"
+                conaffinity="3"
+                density="0"/>
+        </default>
+        <!-- Microwave handle-only contact (bit 2). Collides with jaws because jaw_contact now includes bit 2. -->
+        <default class="handle_contact">
+            <geom
+                solref="0.03 1.0"
+                solimp="0.9 0.95 0.001"
+                margin="0.0015"
+                friction="1.0 0.03 0.0001"
+                condim="3"
+                contype="2"
+                conaffinity="2"
+                density="0"/>
+        </default>
+    </default>
+    <visual>
+        <global offwidth="1920" offheight="1080"/>
+        <quality shadowsize="4096"/>
+    </visual>
+    <asset>
+        <texture name="grid" type="2d" builtin="checker" rgb1=".1 .2 .3" rgb2=".2 .3 .4" width="300" height="300" mark="edge" markrgb=".2 .3 .4"/>
+        <material name="grid" texture="grid" texrepeat="2 2" texuniform="true" reflectance=".2"/>
+        <material name="table_mat" rgba="0.6 0.4 0.2 1"/>
+        <material name="gripper_mat" rgba="0.2 0.2 0.2 1"/>
+        <material name="micro_mat" rgba="0.5 0.5 0.5 1"/>
+        <mesh name="base_link-v3" file="ur3_v2/meshes/base_link-v3.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link1-v4" file="ur3/meshes/link1-v4.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link2-v3" file="ur3/meshes/link2-v3.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link3-v3" file="ur3/meshes/link3-v3.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link4-v3" file="ur3/meshes/link4-v3.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link5-v3" file="ur3/meshes/link5-v3.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link6-v3" file="ur3/meshes/link6-v3.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="Left_Grip" file="ur3/meshes/Left_Grip.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="Right_Grip" file="ur3/meshes/Right_Grip.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="micro_Base" file="Microwave/meshes/Base.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="micro_BaseJoint" file="Microwave/meshes/BaseJoint.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="Cup_mesh" file="Cup/meshes/Cup-Noodles.stl" scale="0.001 0.001 0.001"/>
+
+        <!-- SDF collision versions of the jaw meshes (concave-friendly) -->
+        <!-- <sdf name="Left_Grip_sdf"  mesh="Left_Grip"  />
+        <sdf name="Right_Grip_sdf" mesh="Right_Grip" /> -->
+    </asset>
+
+    <sensor>
+        <touch name="button_force_sensor" site="btn_touch_surface"/>
+    </sensor>
+
+    <actuator>
+        <position name="shoulder_pan_servo" joint="shoulder_pan" kp="500" kv="50"/>
+        <position name="shoulder_lift_servo" joint="shoulder_lift" kp="500" kv="50"/>
+        <position name="elbow_servo" joint="elbow" kp="500" kv="50"/>
+        
+        <position name="wrist_1_servo" joint="wrist_1" kp="200" kv="20"/>
+        <position name="wrist_2_servo" joint="wrist_2" kp="200" kv="20"/>
+        <position name="wrist_3_servo" joint="wrist_3" kp="200" kv="20"/>
+
+        <position name="gripper_servo" joint="link6_Grip-Driver" kp="100" kv="5" ctrlrange="-0.8 0.8"/>
+    </actuator>
+
+    <worldbody>
+        <light pos="0 0 2" dir="0 0 -1" directional="true" castshadow="true"/>
+        <light pos="1 1 2" dir="-1 -1 -1" diffuse="0.5 0.5 0.5"/>
+        <geom name="floor" size="2 2 .05" type="plane" material="grid" condim="3" group="1"/>
+
+        <geom name="ur3_table" type="box" size="0.30559375 0.3048 0.01" pos="-0.00238125 0 0.01" material="table_mat" mass="50" group="2"/>
+
+        <geom class="soft_contact" name="micro_table" type="box" size="0.422275 0.2524125 0.01396875" 
+              pos="0.1145 -0.5575 0.01396875" material="table_mat" mass="50" group="2"/>
+
+        <body name="Cup" pos="-0.2609875 -0.3431875 0.03">
+            <joint name="cup_x" type="slide" axis="1 0 0" damping="0.01"/>
+            <joint name="cup_y" type="slide" axis="0 1 0" damping="0.01"/>
+            <joint name="cup_z" type="slide" axis="0 0 1" damping="0.01"/>
+            <joint name="cup_rot" type="ball" damping="0.01"/>
+            
+            <inertial mass="0.68" pos="0 0 0.067" fullinertia="0.0015 0.0015 0.001 0 0 0"/>
+
+            <geom name="cup_mesh" type="mesh" mesh="Cup_mesh" material="gripper_mat" 
+                  contype="0" conaffinity="0" group="2" density="0"/>
+
+            <geom class="soft_contact" name="cup_col" type="cylinder" size="0.045 0.06" pos="0 0 0.06" 
+                  rgba="1 0 0 0.3" friction="1 0.005 0.0001" group="2"/>
+            
+            <body name="cup_grip_target_front" pos="0 -0.05 0.03" euler="0 0 0">
+                <geom name="cup_grip_target_geom_front" type="sphere" size="0.01" rgba="0.125 0 0.7 1" contype="0" conaffinity="0"/>
+                <site name="cup_grip_target_site_front" pos="0 0 0" size="0.01" rgba="1 0 0 0.5"/>
+            </body>
+            <body name="cup_grip_target_back" pos="0 0.06 0.03" euler="0 0 0">
+                <geom name="cup_grip_target_geom_back" type="sphere" size="0.01" rgba="0.125 0 0.7 1" contype="0" conaffinity="0"/>
+                <site name="cup_grip_target_site_back" pos="0 0 0" size="0.01" rgba="1 0 0 0.5"/>
+            </body>
+        </body>
+
+        <body name="Microwave_Assembly" pos="0.1145 -0.6575 0" euler="0 0 0">
+            
+            <body name="Microwave" pos="0 0 0.0279375" euler="0 0 3.141592653589793">
+                <geom name="micro_Base_geom" type="mesh" mesh="micro_Base" material="micro_mat" contype="0" conaffinity="0" group="2"/>
+                <inertial mass="15.0" pos="0.04 0.16 0.23" fullinertia="0.1 0.1 0.1 0 0 0"/> 
+                
+                <body name="cup_target" pos="0.125 0.062 0.1" euler="0 0 0">
+                    <geom name="cup_target_geom" type="sphere" size="0.01" rgba="0.12 0.3 1 1" contype="0" conaffinity="0"/>
+                    <site name="cup_target_site" pos="0 0 0" size="0.01" rgba="1 0 0 0.5"/>
+                </body>
+
+                <body name="Microwave_Door" pos="0 0 0">
+                    <joint name="door_joint" type="hinge" axis="0 0 1" pos="-0.377 0 0.165"/>
+
+                    <geom
+                        name="micro_door_geom"
+                        type="mesh"
+                        mesh="micro_BaseJoint"
+                        material="micro_mat"
+                        rgba="0.2 0.2 0.2 1"
+                        contype="0"
+                        conaffinity="0"
+                        group="2"/>
+
+                    <site name="handle_centroid" pos="0.219075 -0.085 0.180" size="0.01" rgba="0 0 1 1"/>
+
+                    <site name="handle_arc_bottom" pos="0.219075 -0.085000 0.110000" size="0.006" rgba="0 1 1 0.7"/>
+                    <site name="handle_arc_mid"    pos="0.219075 -0.115000 0.180000" size="0.006" rgba="0 1 1 0.7"/>
+                    <site name="handle_arc_top"    pos="0.219075 -0.085000 0.250000" size="0.006" rgba="0 1 1 0.7"/>
+
+                    <geom class="soft_contact" name="HandleArc_00" type="capsule"
+                        fromto="0.219075 -0.0850 0.1100   0.219075 -0.0980 0.1240"
+                        size="0.007" rgba="0 1 1 0.25"/>
+
+                    <geom class="soft_contact" name="HandleArc_01" type="capsule"
+                        fromto="0.219075 -0.0980 0.1240   0.219075 -0.1060 0.1380"
+                        size="0.007" rgba="0 1 1 0.25"/>
+
+                    <geom class="soft_contact" name="HandleArc_02" type="capsule"
+                        fromto="0.219075 -0.1060 0.1380   0.219075 -0.1110 0.1520"
+                        size="0.007" rgba="0 1 1 0.25"/>
+
+                    <geom class="soft_contact" name="HandleArc_03" type="capsule"
+                        fromto="0.219075 -0.1110 0.1520   0.219075 -0.1140 0.1660"
+                        size="0.007" rgba="0 1 1 0.25"/>
+
+                    <geom class="soft_contact" name="HandleArc_04" type="capsule"
+                        fromto="0.219075 -0.1140 0.1660   0.219075 -0.1150 0.1800"
+                        size="0.007" rgba="0 1 1 0.25"/>
+
+                    <geom class="soft_contact" name="HandleArc_05" type="capsule"
+                        fromto="0.219075 -0.1150 0.1800   0.219075 -0.1140 0.1940"
+                        size="0.007" rgba="0 1 1 0.25"/>
+
+                    <geom class="soft_contact" name="HandleArc_06" type="capsule"
+                        fromto="0.219075 -0.1140 0.1940   0.219075 -0.1110 0.2080"
+                        size="0.007" rgba="0 1 1 0.25"/>
+
+                    <geom class="soft_contact" name="HandleArc_07" type="capsule"
+                        fromto="0.219075 -0.1110 0.2080   0.219075 -0.1060 0.2220"
+                        size="0.007" rgba="0 1 1 0.25"/>
+
+                    <geom class="soft_contact" name="HandleArc_08" type="capsule"
+                        fromto="0.219075 -0.1060 0.2220   0.219075 -0.0980 0.2360"
+                        size="0.007" rgba="0 1 1 0.25"/>
+
+                    <geom class="soft_contact" name="HandleArc_09" type="capsule"
+                        fromto="0.219075 -0.0980 0.2360   0.219075 -0.0850 0.2500"
+                        size="0.007" rgba="0 1 1 0.25"/>
+
+                    <geom class="soft_contact" name="HandleArc_endA" type="sphere"
+                        pos="0.219075 -0.085000 0.110000" size="0.009" rgba="0 1 1 0.25"/>
+                    <geom class="soft_contact" name="HandleArc_endB" type="sphere"
+                        pos="0.219075 -0.085000 0.250000" size="0.009" rgba="0 1 1 0.25"/>
+
+                    <!-- ========================================================= -->
+                    <!-- DOOR COLLISION PROXY (rectangular prism, planar faces)     -->
+                    <!-- The door (minus handle) is approximated as a box prism.    -->
+                    <!-- We implement it as 6 thin box "faces" for stable contact.  -->
+                    <!-- This avoids mesh/hinge weirdness while still feeling solid. -->
+                    <!--                                                          -->
+                    <!-- Coordinate note: these are in Microwave_Door local frame.  -->
+                    <!-- Tune the dimensions/pos to match your mesh silhouette.     -->
+                    <!--                                                          -->
+                    <!-- Dimensions chosen to be consistent with your door_col_slab -->
+                    <!-- (half-sizes):                                              -->
+                    <!--   half-length (X) ~ 0.25                                   -->
+                    <!--   half-depth  (Y) ~ 0.02  (thin door)                       -->
+                    <!--   half-height (Z) ~ 0.16                                    -->
+                    <!-- ========================================================= -->
+
+                    <!-- Shared half-dims (copy/paste tuning knobs) -->
+                    <!-- Lx = 0.25, Ly = 0.02, Lz = 0.16 -->
+                    <!-- Door center matches your slab: pos="-0.08 -0.02 0.165" -->
+
+                    <geom
+                        name="door_face_front"
+                        type="box"
+                        size="0.25 0.001 0.16"
+                        pos="-0.08 -0.061 0.165"
+                        class="soft_contact"
+                        rgba="0.7 0.7 0.7 0.12"/>
+
+                    <geom
+                        name="door_face_back"
+                        type="box"
+                        size="0.25 0.001 0.16"
+                        pos="-0.08 -0.019 0.165"
+                        class="soft_contact"
+                        rgba="0.7 0.7 0.7 0.12"/>
+
+                    <geom
+                        name="door_face_left"
+                        type="box"
+                        size="0.001 0.02 0.16"
+                        pos="-0.331 -0.04 0.165"
+                        class="soft_contact"
+                        rgba="0.7 0.7 0.7 0.12"/>
+
+                    <geom
+                        name="door_face_right"
+                        type="box"
+                        size="0.001 0.0349 0.16"
+                        pos="0.2428 -0.03493 0.165"
+                        class="soft_contact"
+                        rgba="1 0 0 0.12"/>
+
+                    <geom
+                        name="door_face_top"
+                        type="box"
+                        size="0.25 0.02 0.001"
+                        pos="-0.08 -0.04 0.326"
+                        class="soft_contact"
+                        rgba="0.7 0.7 0.7 0.12"/>
+
+                    <geom
+                        name="door_face_bottom"
+                        type="box"
+                        size="0.25 0.02 0.001"
+                        pos="-0.08 -0.04 0.004"
+                        class="soft_contact"
+                        rgba="0.7 0.7 0.7 0.12"/>
+                </body>
+
+                <body name="button_open" pos="0.314325 -0.07 0.0541" euler="0 0 0">
+                    <geom name="button_geom" type="sphere" size="0.01" rgba="0 1 0 1" contype="0" conaffinity="0"/>
+                    <joint name="btn_joint" type="slide" axis="1 0 0" range="0 0.02" stiffness="500" springref="0" damping="10"/>
+                    <site name="btn_touch_surface" pos="0 0 0" size="0.01" rgba="1 0 0 0.5"/>
+                </body>
+            </body>
+        </body>
+
+        <body name="ur3_base" pos="0 0 0.0622">
+             <geom name="base_link_geom" type="mesh" mesh="base_link-v3" rgba="0.7 0.7 0.7 1"/>
+            <inertial mass="4.81" pos="-5e-05 -0.016 0.003" fullinertia="0.006 0.006 0.008 0 0 0"/>
+            <body name="link1" pos="0.00017 -0.0211 0.1046" euler="1.571 0 0">
+                <joint name="shoulder_pan" axis="0 1 0" pos="-0.0001 -0.0608 -0.004"/>
+                <geom name="link1_geom" type="mesh" mesh="link1-v4" rgba="0.7 0.7 0.7 1"/>
+                <inertial mass="0.31" pos="-0.0002 0.049 -0.009" fullinertia="0.0002 0.0004 0.0002 0 0 0"/>
+                <body name="link2" pos="0.0062 0.122 0.1108" euler="-1.57 0 -3.14">
+                    <joint name="shoulder_lift" axis="0 1 0" pos="0.006 -0.0608 -0.117"/>
+                    <geom name="link2_geom" type="mesh" mesh="link2-v3" rgba="0.7 0.7 0.7 1"/>
+                    <inertial mass="8.39" pos="0.003 0.006 0.052" fullinertia="0.051 0.052 0.007 0 0 0"/>
+                    <body name="link3" pos="0.1004 0.0052 0.2402" euler="-1.572 0.059 1.602">
+                        <joint name="elbow" axis="-0.03 -0.99 0.048" pos="0.115 0.048 -0.003"/>
+                        <geom name="link3_geom" type="mesh" mesh="link3-v3" rgba="0.7 0.7 0.7 1"/>
+                        <inertial mass="7.52" pos="0.002 0.006 0.001" fullinertia="0.005 0.055 0.057 0 0 0"/>
+                        <body name="link4" pos="-0.0938 0.0851 0.0067" euler="-0.001 0 -0.079">
+                            <joint name="wrist_1" axis="-0.04 0.99 0.0003" pos="-0.0008 -0.038 -0.001"/>
+                            <geom name="link4_geom" type="mesh" mesh="link4-v3" rgba="0.7 0.7 0.7 1"/>
+                            <inertial mass="2.54" pos="-0.001 0.0002 -0.001" fullinertia="0.001 0.002 0.002 0 0 0"/>
+                            <body name="link5" pos="-0.0821 0.00004 -0.0009" euler="-2.62 1.49 2.62">
+                                <joint name="wrist_2" axis="0.048 -0.007 -0.99" pos="-0.002 0.002 0.036"/>
+                                <geom name="link5_geom" type="mesh" mesh="link5-v3" rgba="0.7 0.7 0.7 1"/>
+                                <inertial mass="2.54" pos="-0.0009 0.001 -0.001" fullinertia="0.002 0.001 0.002 0 0 0"/>
+                                <body name="link6" pos="0.0003 0.0626 -0.0087" euler="1.61 0.13 2.70">
+                                    <joint name="wrist_3" axis="-0.14 -0.01 -0.98" pos="0.003 -0.0001 0.017"/>
+                                    <geom name="link6_geom" type="mesh" mesh="link6-v3" rgba="0.7 0.7 0.7 1"/>
+                                    <site name="ee_site" pos="-0.046 0.0165 -0.216" size="0.01" rgba="1 0 0 1"/>
+                                    <body name="Left_Grip" pos="-0.00289 -0.00054 -0.0273" euler="-1.498 -0.517 -2.967">
+                                        <joint name="link6_Grip-Driver" type="hinge" axis="0 0 1"
+                                            pos="0.016 -0.066 0.022" range="-0.8 0.8"/>
+
+                                        <geom name="Left_Grip_vis" type="mesh" mesh="Left_Grip" material="gripper_mat" contype="0" conaffinity="0"/>
+
+                                        <!-- Arc collision approximation (union of capsules => concave cavity) -->
+                                        <geom class="jaw_contact" name="LeftArc_00" type="capsule" fromto="0.000887 -0.184893 0.019000  0.000887 -0.184893 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_01" type="capsule" fromto="0.006401 -0.184048 0.019000  0.006401 -0.184048 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_02" type="capsule" fromto="0.011827 -0.182325 0.019000  0.011827 -0.182325 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_03" type="capsule" fromto="0.017093 -0.179750 0.019000  0.017093 -0.179750 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_04" type="capsule" fromto="0.022132 -0.176365 0.019000  0.022132 -0.176365 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_05" type="capsule" fromto="0.026878 -0.172224 0.019000  0.026878 -0.172224 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_06" type="capsule" fromto="0.031270 -0.167392 0.019000  0.031270 -0.167392 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_07" type="capsule" fromto="0.035250 -0.161943 0.019000  0.035250 -0.161943 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_08" type="capsule" fromto="0.038769 -0.155958 0.019000  0.038769 -0.155958 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_09" type="capsule" fromto="0.041789 -0.149527 0.019000  0.041789 -0.149527 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_10" type="capsule" fromto="0.044277 -0.142740 0.019000  0.044277 -0.142740 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_11" type="capsule" fromto="0.046212 -0.135693 0.019000  0.046212 -0.135693 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_12" type="capsule" fromto="0.047580 -0.128483 0.019000  0.047580 -0.128483 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_13" type="capsule" fromto="0.048380 -0.121207 0.019000  0.048380 -0.121207 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_14" type="capsule" fromto="0.048619 -0.113964 0.019000  0.048619 -0.113964 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_15" type="capsule" fromto="0.048313 -0.106851 0.019000  0.048313 -0.106851 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+
+                                        <!-- End “bumps” to reduce slipping out -->
+                                        <geom class="jaw_contact" name="LeftArc_endA" type="sphere" pos="0.000887 -0.184893 0.023500" size="0.003000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="LeftArc_endB" type="sphere" pos="0.024546 -0.111062 0.023500" size="0.003000" rgba="0 1 0 0.25"/>
+
+                                        <!-- <geom name="Left_Grip_geom" type="mesh" mesh="Left_Grip"
+                                            material="gripper_mat" contype="0" conaffinity="0"/> -->
+                                        <!-- <geom name="Left_Grip_geom" type="mesh" mesh="Left_Grip"
+                                            material="gripper_mat"
+                                            contype="1" conaffinity="1" condim="3"
+                                            friction="1.2 0.10 0.0001"/> -->
+                                        <!-- Visual only (no collision) -->
+                                        <!-- <geom name="Left_Grip_vis"
+                                            type="mesh" mesh="Left_Grip"
+                                            material="gripper_mat"
+                                            contype="0" conaffinity="0"/>
+
+                                        <!- Collision approximation: 3 boxes making an “arc” -->
+                                        <!-- <geom name="Left_Grip_col0" type="box" size="0.004 0.055 0.012" pos="0.030 -0.135 0.020"/>
+                                        <geom name="Left_Grip_col1" type="box" size="0.004 0.045 0.010" pos="0.036 -0.135 0.028"/>
+                                        <geom name="Left_Grip_col2" type="box" size="0.004 0.045 0.010" pos="0.024 -0.135 0.012"/>  -->
+                                        <!-- Collision only (concave via SDF) -->
+                                        <!-- <geom name="Left_Grip_col"
+                                            type="sdf" sdf="Left_Grip_sdf"
+                                            density="0"
+                                            rgba="0 1 0 0.25"/> -->
+                                        <!-- <geom name="Left_Grip_col" type="box"
+                                            size="0.010 0.06 0.015"
+                                            pos="0.030 -0.135 0.020"
+                                            material="gripper_mat"/> -->
+                                        <!-- <geom name="Left_Grip_col" type="box"
+                                            size="0.010 0.06 0.015"
+                                            pos="0.030 -0.135 0.020"
+                                            material="gripper_mat"
+                                            contype="0" conaffinity="0"
+                                            rgba="1 0 0 0.15"/> -->
+
+                                        <inertial mass="0.217" pos="0.029 -0.128 0.023" fullinertia="0.0004 4.9e-05 0.0004 0 0 0"/>
+                                    </body>
+                                    <body name="Right_Grip" pos="-0.00286 -0.00054 -0.0271" euler="-1.498 -0.517 -2.967">
+                                        <joint name="link6_Grip-Link" type="hinge" axis="0 0 1"
+                                            pos="-0.016 -0.066 0.017" range="-0.8 0.8"/>
+
+                                        <!-- <geom name="Right_Grip_geom" type="mesh" mesh="Right_Grip"
+                                            material="gripper_mat" contype="0" conaffinity="0"/> -->
+                                        <!-- <geom name="Right_Grip_geom" type="mesh" mesh="Right_Grip"
+                                            material="gripper_mat"
+                                            contype="1" conaffinity="1" condim="3"
+                                            friction="1.2 0.10 0.0001"/> -->
+                                        
+                                        <geom name="Right_Grip_vis" type="mesh" mesh="Right_Grip" material="gripper_mat" contype="0" conaffinity="0"/>
+
+                                        <!-- Arc collision approximation (mirrored from LeftArc: x -> -x) -->
+                                        <geom class="jaw_contact" name="RightArc_00" type="capsule" fromto="-0.000887 -0.184893 0.019000  -0.000887 -0.184893 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_01" type="capsule" fromto="-0.006401 -0.184048 0.019000  -0.006401 -0.184048 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_02" type="capsule" fromto="-0.011827 -0.182325 0.019000  -0.011827 -0.182325 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_03" type="capsule" fromto="-0.017093 -0.179750 0.019000  -0.017093 -0.179750 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_04" type="capsule" fromto="-0.022132 -0.176365 0.019000  -0.022132 -0.176365 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_05" type="capsule" fromto="-0.026878 -0.172224 0.019000  -0.026878 -0.172224 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_06" type="capsule" fromto="-0.031270 -0.167392 0.019000  -0.031270 -0.167392 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_07" type="capsule" fromto="-0.035250 -0.161943 0.019000  -0.035250 -0.161943 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_08" type="capsule" fromto="-0.038769 -0.155958 0.019000  -0.038769 -0.155958 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_09" type="capsule" fromto="-0.041789 -0.149527 0.019000  -0.041789 -0.149527 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_10" type="capsule" fromto="-0.044277 -0.142740 0.019000  -0.044277 -0.142740 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_11" type="capsule" fromto="-0.046212 -0.135693 0.019000  -0.046212 -0.135693 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_12" type="capsule" fromto="-0.047580 -0.128483 0.019000  -0.047580 -0.128483 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_13" type="capsule" fromto="-0.048380 -0.121207 0.019000  -0.048380 -0.121207 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_14" type="capsule" fromto="-0.048619 -0.113964 0.019000  -0.048619 -0.113964 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_15" type="capsule" fromto="-0.048313 -0.106851 0.019000  -0.048313 -0.106851 0.028000" size="0.002000" rgba="0 1 0 0.25"/>
+
+                                        <!-- End “bumps” to reduce slipping out -->
+                                        <geom class="jaw_contact" name="RightArc_endA" type="sphere" pos="-0.000887 -0.184893 0.023500" size="0.003000" rgba="0 1 0 0.25"/>
+                                        <geom class="jaw_contact" name="RightArc_endB" type="sphere" pos="-0.024546 -0.111062 0.023500" size="0.003000" rgba="0 1 0 0.25"/>
+
+                                        <!-- <geom name="Right_Grip_col"
+                                            type="sdf" sdf="Right_Grip_sdf"
+                                            density="0"
+                                            rgba="1 0 0 0.25"/> -->
+
+                                        <!-- <geom name="Right_Grip_col" type="box"
+                                            size="0.010 0.06 0.015"
+                                            pos="-0.030 -0.135 0.020"
+                                            material="gripper_mat"/> -->
+
+                                        <geom name="Right_Grip_col" type="box"
+                                            size="0.010 0.06 0.015"
+                                            pos="-0.030 -0.135 0.020"
+                                            material="gripper_mat"
+                                            contype="0" conaffinity="0"
+                                            rgba="0 1 0 0.15"/>
+                                        
+                                        <inertial mass="0.239" pos="-0.028 -0.123 0.023" fullinertia="0.0004 5.2e-05 0.0005 0 0 0"/>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+    <contact>
+        <!-- Disable self-contact between UR3 base and first link -->
+        <exclude body1="ur3_base" body2="link1"/>
+
+        <!-- Disable contact between microwave table and door -->
+        <exclude body1="Microwave_Assembly" body2="Microwave_Door"/>
+
+        <!-- Gripper is rack-and-pinion tooth servo mechanism, starts overlapping, simplify it. -->
+        <exclude body1="Left_Grip" body2="Right_Grip"/>
+        <!-- Jaws vs cup -->
+        <!-- <pair geom1="Left_Grip_col"  geom2="cup_col"
+            margin="0.0015"
+            solref="-0.010 -1.0" # Same as Right_Grip to improve stability
+            solimp="0.9 0.95 0.001"
+            friction="1.0 0.02 0.0001"/> -->
+        <!-- <pair geom1="Left_Grip_col"  geom2="cup_col"
+            margin="0.0015"
+            solimp="0.9 0.95 0.001"
+            friction="1.0 0.02 0.0001"/>
+
+        <pair geom1="Right_Grip_col" geom2="cup_col"
+            margin="0.0015"
+            solimp="0.9 0.95 0.001"
+            friction="1.0 0.02 0.0001"/> -->
+
+        <!-- <pair geom1="Left_Grip_col"  geom2="cup_col"
+            margin="0.0015"
+            solimp="0.9 0.95 0.001"
+            friction="1.0 0.02 0.0001"/>
+
+        <pair geom1="Right_Grip_col" geom2="cup_col"
+            margin="0.0015"
+            solimp="0.9 0.95 0.001"
+            friction="1.0 0.02 0.0001"/> -->
+    </contact>
+
+    <!-- Put this near the bottom, before </mujoco> -->
+    <equality>
+        <!-- Open/close symmetrically: q_link = -q_driver -->
+        <joint joint1="link6_Grip-Driver" joint2="link6_Grip-Link" polycoef="0 -1 0 0 0"/>
+    </equality>
+</mujoco>

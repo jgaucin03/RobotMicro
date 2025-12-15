@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Logs / temp
+MUJOCO_LOG.TXT
+*.log
+
+# Big / generated paths (optional)
+motion/*.csv
+motion/ur_ikfast/*.so

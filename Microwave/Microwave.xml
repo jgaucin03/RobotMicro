@@ -1,0 +1,79 @@
+<mujoco model="Microwave">
+    <compiler angle="radian" />
+    <asset>
+        <mesh name="BaseJoint" file="meshes/BaseJoint.stl" scale="0.001 0.001 0.001" />
+        <mesh name="Base" file="meshes/Base.stl" scale="0.001 0.001 0.001" />
+    </asset>
+    <!-- 
+    <worldbody>
+        <light directional="true" pos="-0.5 0.5 3" dir="0 0 -1" />
+        <geom pos="0 0 0" size="1 1 1" type="plane" rgba="1 0.83 0.61 0.5" />
+        <body name="Base" pos="0.0 0.0 0.0" euler="-0.0 0.0 -0.0">
+            <geom name="Base_geom" type="mesh" mesh="Base" pos="0 0 0" euler="0 0 0" />
+            <inertial mass="605.0308611052124" pos="0.042977016185293974 0.1603210350681364 0.23383245139760933" fullinertia="18.813881216125736 44.99207127439055 42.39084836089747 1.7893354356726023 1.8133128263705354 1.11536427885315" />
+            <body name="BaseJoint" pos="0.0 0.0 0.0" euler="-0.0 0.0 -0.0">
+                <joint name="Base_Joint1" type="hinge" axis="0.0 0.0 1.0" pos="-0.377825 0.0 0.165225" />
+                <geom name="BaseJoint_geom" type="mesh" mesh="BaseJoint" pos="0 0 0" euler="0 0 0" />
+                <inertial mass="113.97162766322677" pos="-0.06341457521098223 -0.03560424582252002 0.16531556735525063" fullinertia="1.0823810161327057 4.7729283551809445 3.791718009580058 0.02186886040077879 -0.00291588815591326 0.0006074683444654561" />
+            </body>
+        </body>
+    </worldbody>
+    -->
+    <worldbody>
+        <light directional="true" pos="-0.5 0.5 3" dir="0 0 -1" />
+        <geom pos="0 0 0" size="1 1 1" type="plane" rgba="1 0.83 0.61 0.5" />
+        <body name="Base" pos="0.0 0.0 0.0" euler="-0.0 0.0 -0.0">
+            
+            <geom name="Base_visual" type="mesh" mesh="Base" 
+                contype="0" conaffinity="0" group="1" rgba="1 1 1 1"/>
+
+            <geom name="c_floor" type="box" pos="0 0 0.01" size="0.378 0.203 0.01" rgba="1 0 0 0.3"/>
+            <geom name="c_ceil"  type="box" pos="0 0 0.402" size="0.378 0.203 0.01" rgba="1 0 0 0.3"/>
+            <geom name="c_back"  type="box" pos="0 0.203 0.206" size="0.378 0.01 0.206" rgba="1 0 0 0.3"/>
+            <geom name="c_right" type="box" pos="0.368 0 0.206" size="0.01 0.203 0.206" rgba="1 0 0 0.3"/>
+            <geom name="c_left"  type="box" pos="-0.368 0 0.206" size="0.01 0.203 0.206" rgba="1 0 0 0.3"/>
+
+            <inertial mass="605.03" pos="0.04 0.16 0.23" fullinertia="18.8 44.9 42.3 1.7 1.8 1.1" />
+
+            <body name="BaseJoint" pos="0.0 0.0 0.0" euler="-0.0 0.0 -0.0">
+                <joint name="Base_Joint1" type="hinge" axis="0.0 0.0 1.0" pos="-0.377825 0.0 0.165225" />
+                
+                <geom name="BaseJoint_geom" type="mesh" mesh="BaseJoint" />
+                
+                <inertial mass="113.97" pos="-0.06 -0.03 0.16" fullinertia="1.08 4.77 3.79 0.02 -0.002 0.0006" />
+            </body>
+
+            <!-- Button positioned from real door measurements 
+            y: 0.07 m empirically makes the sphere half-portrude, perfectly cut in half, half in, half out red sphere.-->
+            <body name="button_open" pos="0.314325 -0.07 0.0541" euler="0 0 0">
+                <!-- purely visual, non-colliding button marker -->
+                <geom type="sphere" size="0.01"
+                    rgba="0 1 0 1"
+                    contype="0" conaffinity="0"/>
+
+                <!-- optional slide joint for later if you want it to actually move -->
+                <joint name="btn_joint" type="slide"
+                    axis="1 0 0" range="0 0.02"
+                    stiffness="500" springref="0" damping="10"/>
+
+                <!-- IK/contact target exactly at the button center -->
+                <site name="btn_touch_surface"
+                    pos="0 0 0"
+                    size="0.01"
+                    rgba="1 0 0 0.5"/>
+            </body>
+
+            <!-- Door handle centroid marker (non-colliding) 
+            x: 0.219075 m (18.25" from Microwave frame origin)
+            Original Measurement: 23.5" from Microwave front/door face left edge to handle centroid
+            old y: 0
+            y: 0.07 m + (1.875" Door Handle offset from Microwave frame =) 0.047625 m = 0.117625 m 
+            old z: 0.11125 m 
+            z: 1.8 (Very approximately centered, some blue sphere inside handle, mostly ~70% protruding outside handle)-->
+            <site name="handle_centroid"
+                pos="0.219075 -0.117625 0.180"
+                size="0.01"
+                rgba="0 0 1 1"/>
+        </body>
+    </worldbody>
+</mujoco>

@@ -1,0 +1,255 @@
+
+<mujoco model="UR3_Gripper_Debug_Scene">
+    <compiler angle="radian" meshdir="./" balanceinertia="true"/>
+    
+    <option timestep="0.002" integrator="RK4"/>
+    
+    <default>
+        <geom solimp="0.99 0.99 0.001" solref="0.001 1" margin="0.001" friction="1 0.005 0.0001"/>
+        <joint armature="0.01" damping="1" stiffness="0"/>
+    </default>
+
+    <visual>
+        <global offwidth="1920" offheight="1080"/>
+        <quality shadowsize="4096"/>
+    </visual>
+
+    <asset>
+        <texture name="grid" type="2d" builtin="checker" rgb1=".1 .2 .3" rgb2=".2 .3 .4" width="300" height="300" mark="edge" markrgb=".2 .3 .4"/>
+        <material name="grid" texture="grid" texrepeat="2 2" texuniform="true" reflectance=".2"/>
+        <material name="table_mat" rgba="0.6 0.4 0.2 1"/>
+        <material name="gripper_mat" rgba="0.2 0.2 0.2 1"/>
+        <material name="micro_mat" rgba="0.5 0.5 0.5 1"/>
+
+        <mesh name="base_link-v3" file="ur3_v2/meshes/base_link-v3.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link1-v4"     file="ur3/meshes/link1-v4.stl"     scale="0.001 0.001 0.001"/>
+        <mesh name="link2-v3"     file="ur3/meshes/link2-v3.stl"     scale="0.001 0.001 0.001"/>
+        <mesh name="link3-v3"     file="ur3/meshes/link3-v3.stl"     scale="0.001 0.001 0.001"/>
+        <mesh name="link4-v3"     file="ur3/meshes/link4-v3.stl"     scale="0.001 0.001 0.001"/>
+        <mesh name="link5-v3"     file="ur3/meshes/link5-v3.stl"     scale="0.001 0.001 0.001"/>
+        <mesh name="link6-v3"     file="ur3/meshes/link6-v3.stl"     scale="0.001 0.001 0.001"/>
+        
+        <mesh name="Left_Grip" file="ur3/meshes/Left_Grip.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="Right_Grip" file="ur3/meshes/Right_Grip.stl" scale="0.001 0.001 0.001"/>
+
+        <mesh name="micro_Base"      file="Microwave/meshes/Base.stl"      scale="0.001 0.001 0.001"/>
+        <mesh name="micro_BaseJoint" file="Microwave/meshes/BaseJoint.stl" scale="0.001 0.001 0.001"/>
+
+        <mesh name="Cup_mesh" file="Cup/meshes/Cup-Noodles.stl" scale="0.001 0.001 0.001"/>
+    </asset>
+
+    <worldbody>
+        <light pos="0 0 2" dir="0 0 -1" directional="true" castshadow="true"/>
+        <light pos="1 1 2" dir="-1 -1 -1" diffuse="0.5 0.5 0.5"/>
+        <geom name="floor" size="2 2 .05" type="plane" material="grid" condim="3" group="1"/>
+
+        <!-- <geom name="table_base" type="box" size="0.4 0.3 0.01" pos="0 0 0.01" material="table_mat" mass="10"/> -->
+
+        <!-- UR3 ROBOT WITH GRIPPER: # Half-extents for geom (size = height / 2)
+            MICRO_TABLE_Z_SIZE = MICRO_TABLE_HEIGHT / 2
+
+            # Table Placement (Touching at x=0.4)
+            UR3_TABLE_X_HALF = 0.4
+            MICRO_TABLE_X_HALF = 0.4
+            MICRO_TABLE_CENTER_X = UR3_TABLE_X_HALF + MICRO_TABLE_X_HALF # 0.8
+            HEIGHT_DIFF = (5/16) * 0.0254 # 5/16 inches in meters (~0.0079m)
+            MICRO_TABLE_HEIGHT = UR3_TABLE_HEIGHT + HEIGHT_DIFF 
+            
+            # - CONFIGURATION -
+            # Height Math
+            UR3_TABLE_HEIGHT = 0.02
+            HEIGHT_DIFF = (5/16) * 0.0254 # 5/16 inches in meters (~0.0079m)
+            MICRO_TABLE_HEIGHT = UR3_TABLE_HEIGHT + HEIGHT_DIFF // 0.02 + 5/16 * 0.0254 = 0.0279375 m
+
+            # Half-extents for geom (size = height / 2)
+            MICRO_TABLE_Z_SIZE = MICRO_TABLE_HEIGHT / 2 // 0.0279375 / 2 = 0.01396875 m
+
+            # Table Placement (Touching at x=0.4)
+            UR3_TABLE_X_HALF = 0.4
+            MICRO_TABLE_X_HALF = 0.4
+            MICRO_TABLE_CENTER_X = UR3_TABLE_X_HALF + MICRO_TABLE_X_HALF // 0.4 + 0.4 = 0.8
+
+            # UR3 table: 
+            # Length {24" (Table Length) = 0.6096 m; Half-extents = 0.3048 m} Width {24.0625" (Table Width) = 0.6118125 m; Half-extents = 0.30559375 m}
+            # UR3 (Base) Position: (0, 0, 0.0622) 
+            # Note: Coordinate UR3 base coordinate frame is INSIDE the shell of the robot base not at BOLTS. BOLTS are flush with tabletop. There is a BOLTS (Flush with table) to coordinate base frame height offset.
+            # UR3 (Base) Position Relative to UR3 Table Height {0.0622 m (Offset for Base BOLTS flush with 0.01 Half-extent m size-along-height table) = 4.8976378" = 0.1244 m; Half-extents = 0.0622 m} 
+
+            # UR3 Table Center Length: 24” / 2 = 12” → so 12” is centered on Table Length
+            # UR3 Table Center Width: 24.0625” / 2 = 12.03125” → so 12.125” is (12.125" - 12.03125" =) 0.09375” = 0.00238125 m off-axis on Table Width
+            # UR3 (Base) Position Relative to UR3 Table Length {12" = 0.3048 m} Width {12.125” = 0.307975 m} 
+            
+            # Micro table: 
+            # Length {1.75" (Table Left Edge to Microwave Left) + 29.75" (Microwave Edge Length) + 1.75" (Microwave Right to Table Right Edge) = 33.25" = 0.84455 m; Half-extents = 0.422275 m} 
+            # Width {1.875" (Microwave Handle to Microwave Frame) + 16" (Microwave Frame Width) + 2" (Microwave Frame to Table Edge) = 19.875" = 0.504825 m; Half-extents = 0.2524125 m}
+            # Micro Table Width (19.875") is along (in contact with) UR3 Table Length (24").
+            # Micro Table Contact Length with UR3 Table: 13.5"
+            # Micro Table Position: (x, y, z) = (0.7254875, 0.2143125, 0.01396875)
+            
+            # Note: Add some more length to micro table so the microwave fits on it.
+            # Final Final Table Size (Half-extent): 
+
+            # Microwave Position: 
+            # Microwave Length: 29.75" = 0.75565 m
+            # Microwave (Frame) Width: 16" = 0.4064 m
+            # Microwave (Door) Width: 1.875" = 0.047625 m
+            # Microwave Height: 16.25" = 0.412075 m
+            # Microwave Final Position: (x, y, z) = (0.7254875, -0.2143125, 0.0279375)
+
+            # Microwave Buttons:
+            # Microwave Bottom-Left-most Button Offset Relative to Microwave Door Face Width (Right-Side): 2.5" = 0.0635 m from right edge of door.
+            # Microwave Button-Left-most Offset Relative to Microwave Door Face Height (Bottom-Side): 3.75" = 0.09525 m from bottom edge of door.
+            # Microwave Handle Centroid:
+            # Microwave Handle Centroid Relative to Microwave Door Face Width (Left-Side): 23.5" = 0.5969 m from left edge of door.
+            # Microwave Handle Centroid Relative to Microwave Door Face Height (Center): 6" = 0.1524 m from bottom edge of door.
+            -->
+
+
+        <geom name="ur3_table" type="box" size="0.30559375 0.3048 0.01" pos="-0.00238125 0 0.01" material="table_mat" mass="50" group="3"/>
+
+        <!--- <geom name="micro_table" type="box" size="0.422275 0.2524125 0.01396875" pos="0.8 0 0.01396875" material="table_mat" mass="50"/> -->
+        <!-- <geom name="micro_table" type="box" size="0.422275 0.2524125 0.01396875" pos="0.7254875 -0.2143125 0.01396875" material="table_mat" mass="50"/> -->
+
+        <geom name="micro_table" type="box" size="0.422275 0.2524125 0.01396875" pos="0.7254875 -0.2143125 0.01396875" material="table_mat" mass="50" group="4"/>
+
+        <!-- <body name="Microwave" pos="0.6 0 0.0279375" euler="0 0 -1.5708"> -->
+
+        <body name="Microwave" pos="0.7254875 -0.2143125 0.0279375" euler="0 0 3.141592653589793">
+            <geom type="mesh" mesh="micro_Base" material="micro_mat" contype="0" conaffinity="0" group="5"/>
+            <inertial mass="15.0" pos="0.04 0.16 0.23" fullinertia="0.1 0.1 0.1 0 0 0"/> 
+            <!-- Cup Target -->
+            <body name="cup_target" pos="0.125 0.062 0.1" euler="0 0 0">
+                <!-- purely visual, non-colliding -->
+                <geom type="sphere" size="0.01"
+                    rgba="0.12 0.3 1 1"/>
+                    <!-- contype="0" conaffinity="0" -->
+
+                <!-- IK target exactly at the target center -->
+                <site name="cup_target_site"
+                    pos="0 0 0"
+                    size="0.01"
+                    rgba="1 0 0 0.5"/>
+            </body>
+            <body name="Microwave_Door" pos="0 0 0">
+                <joint name="door_joint" type="hinge" axis="0 0 1" pos="-0.377 0 0.165"/>
+                <geom type="mesh" mesh="micro_BaseJoint" rgba="0.2 0.2 0.2 1"/>
+
+                <!-- Microwave.xml position, adjusted for end-effector point 
+                <site name="handle_centroid"
+                pos="0.219075 -0.117625 0.180"
+                size="0.01"
+                rgba="0 0 1 1"/>
+                -->
+                <site name="handle_centroid"
+                pos="0.219075 -0.085 0.180"
+                size="0.01"
+                rgba="0 0 1 1"/>
+            </body>
+            <!-- Bottom-right button marker (local coords copied from Microwave.xml, adjusted for end-effector point) -->
+            <body name="button_open" pos="0.314325 -0.07 0.0541" euler="0 0 0">
+                <!-- purely visual, non-colliding -->
+                <geom type="sphere" size="0.01"
+                    rgba="0 1 0 1"/>
+                    <!-- contype="0" conaffinity="0" -->
+
+                <!-- optional slide joint if you ever want it to move -->
+                <joint name="btn_joint" type="slide"
+                    axis="1 0 0" range="0 0.02"
+                    stiffness="500" springref="0" damping="10"/>
+
+                <!-- IK target exactly at the button center -->
+                <site name="btn_touch_surface"
+                    pos="0 0 0"
+                    size="0.01"
+                    rgba="1 0 0 0.5"/>
+            </body>
+
+            <!-- Door-handle centroid marker (non-colliding, local coords from Microwave.xml)
+            <site name="handle_centroid"
+                pos="0.219075 -0.117625 0.180"
+                size="0.01"
+                rgba="0 0 1 1"/> -->
+        </body>
+
+        <body name="Cup" pos="0.35 0 0.03">
+            <freejoint/>
+            
+            <inertial mass="0.68" pos="0 0 0.067" fullinertia="0.0015 0.0015 0.001 0 0 0"/>
+
+            <geom type="mesh" mesh="Cup_mesh" material="gripper_mat" 
+                contype="0" conaffinity="0" group="5" density="0"/>
+
+            <geom name="cup_col" type="cylinder" size="0.045 0.06" pos="0 0 0.06" 
+                rgba="1 0 0 0.3" friction="1 0.005 0.0001" group="5"/>
+            
+            <!-- Cup Grip Target (pos is half cylinder size maybe (0.0225 0 0.03)?)-->
+            <body name="cup_grip_target" pos="0 -0.05 0.03" euler="0 0 0">
+                <!-- purely visual, non-colliding -->
+                <geom type="sphere" size="0.01"
+                    rgba="0.125 0 0.7 1"/>
+                    <!-- contype="0" conaffinity="0" -->
+
+                <!-- IK target exactly at the target center -->
+                <site name="cup_grip_target_site"
+                    pos="0 0 0"
+                    size="0.01"
+                    rgba="1 0 0 0.5"/>
+            </body>
+            
+        </body>
+
+        <body name="ur3_base" pos="0 0 0.0622">
+            <geom type="mesh" mesh="base_link-v3" rgba="0.7 0.7 0.7 1" group="2"/>
+            <inertial mass="4.81" pos="-5e-05 -0.016 0.003" fullinertia="0.006 0.006 0.008 0 0 0"/>
+            
+            <body name="link1" pos="0.00017 -0.0211 0.1046" euler="1.571 0 0">
+                <joint name="shoulder_pan" axis="0 1 0" pos="-0.0001 -0.0608 -0.004"/>
+                <geom type="mesh" mesh="link1-v4" rgba="0.7 0.7 0.7 1"/>
+                <inertial mass="0.31" pos="-0.0002 0.049 -0.009" fullinertia="0.0002 0.0004 0.0002 0 0 0"/>
+
+                <body name="link2" pos="0.0062 0.122 0.1108" euler="-1.57 0 -3.14">
+                    <joint name="shoulder_lift" axis="0 1 0" pos="0.006 -0.0608 -0.117"/>
+                    <geom type="mesh" mesh="link2-v3" rgba="0.7 0.7 0.7 1"/>
+                    <inertial mass="8.39" pos="0.003 0.006 0.052" fullinertia="0.051 0.052 0.007 0 0 0"/>
+
+                    <body name="link3" pos="0.1004 0.0052 0.2402" euler="-1.572 0.059 1.602">
+                        <joint name="elbow" axis="-0.03 -0.99 0.048" pos="0.115 0.048 -0.003"/>
+                        <geom type="mesh" mesh="link3-v3" rgba="0.7 0.7 0.7 1"/>
+                        <inertial mass="7.52" pos="0.002 0.006 0.001" fullinertia="0.005 0.055 0.057 0 0 0"/>
+
+                        <body name="link4" pos="-0.0938 0.0851 0.0067" euler="-0.001 0 -0.079">
+                            <joint name="wrist_1" axis="-0.04 0.99 0.0003" pos="-0.0008 -0.038 -0.001"/>
+                            <geom type="mesh" mesh="link4-v3" rgba="0.7 0.7 0.7 1"/>
+                            <inertial mass="2.54" pos="-0.001 0.0002 -0.001" fullinertia="0.001 0.002 0.002 0 0 0"/>
+
+                            <body name="link5" pos="-0.0821 0.00004 -0.0009" euler="-2.62 1.49 2.62">
+                                <joint name="wrist_2" axis="0.048 -0.007 -0.99" pos="-0.002 0.002 0.036"/>
+                                <geom type="mesh" mesh="link5-v3" rgba="0.7 0.7 0.7 1"/>
+                                <inertial mass="2.54" pos="-0.0009 0.001 -0.001" fullinertia="0.002 0.001 0.002 0 0 0"/>
+
+                                <body name="link6" pos="0.0003 0.0626 -0.0087" euler="1.61 0.13 2.70">
+                                    <joint name="wrist_3" axis="-0.14 -0.01 -0.98" pos="0.003 -0.0001 0.017"/>
+                                    <geom type="mesh" mesh="link6-v3" rgba="0.7 0.7 0.7 1"/>
+                                    
+                                    <site name="ee_site" pos="-0.046 0.0165 -0.216" size="0.01" rgba="1 0 0 1"/>
+                                    
+                                    <body name="Left_Grip" pos="-0.00289 -0.00054 -0.0273" euler="-1.498 -0.517 -2.967">
+                                        <joint name="link6_Grip-Driver" type="hinge" axis="0 0 1" pos="0.016 -0.066 0.022"/>
+                                        <geom name="Left_Grip_geom" type="mesh" mesh="Left_Grip" material="gripper_mat"/>
+                                        <inertial mass="0.217" pos="0.029 -0.128 0.023" fullinertia="0.0004 4.9e-05 0.0004 0 0 0"/>
+                                    </body>
+                                    
+                                    <body name="Right_Grip" pos="-0.00286 -0.00054 -0.0271" euler="-1.498 -0.517 -2.967">
+                                        <joint name="link6_Grip-Link" type="hinge" axis="0 0 1" pos="-0.016 -0.066 0.017"/>
+                                        <geom name="Right_Grip_geom" type="mesh" mesh="Right_Grip" material="gripper_mat"/>
+                                        <inertial mass="0.239" pos="-0.028 -0.123 0.023" fullinertia="0.0004 5.2e-05 0.0005 0 0 0"/>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+</mujoco>

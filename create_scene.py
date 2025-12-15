@@ -1,0 +1,112 @@
+# RobotMicro/create_scene.py
+
+import os
+
+OUTPUT_FILE = "scene.xml"
+
+# --- CONFIGURATION ---
+# We point to the specific folders you showed in 'tree'
+UR3_FOLDER = "ur3/meshes/"
+MICRO_FOLDER = "Microwave/meshes/"
+
+xml_content = f"""
+<mujoco model="RobotMicroScene_v3">
+    <compiler angle="radian" meshdir="./"/>
+    <option timestep="0.002" integrator="RK4"/>
+
+    <visual>
+        <global offwidth="1920" offheight="1080"/>
+        <quality shadowsize="4096"/>
+    </visual>
+
+    <asset>
+        <!-- Environment Textures -->
+        <texture name="grid" type="2d" builtin="checker" rgb1=".1 .2 .3" rgb2=".2 .3 .4" width="300" height="300" mark="edge" markrgb=".2 .3 .4"/>
+        <material name="grid" texture="grid" texrepeat="2 2" texuniform="true" reflectance=".2"/>
+
+        <!-- NEW UR3 ASSETS (From ur3_v2) -->
+        <mesh name="base_link-v3" file="{UR3_FOLDER}base_link-v3.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="link1-v4"     file="{UR3_FOLDER}link1-v4.stl"     scale="0.001 0.001 0.001"/>
+        <mesh name="link2-v3"     file="{UR3_FOLDER}link2-v3.stl"     scale="0.001 0.001 0.001"/>
+        <mesh name="link3-v3"     file="{UR3_FOLDER}link3-v3.stl"     scale="0.001 0.001 0.001"/>
+        <mesh name="link4-v3"     file="{UR3_FOLDER}link4-v3.stl"     scale="0.001 0.001 0.001"/>
+        <mesh name="link5-v3"     file="{UR3_FOLDER}link5-v3.stl"     scale="0.001 0.001 0.001"/>
+        <mesh name="link6-v3"     file="{UR3_FOLDER}link6-v3.stl"     scale="0.001 0.001 0.001"/>
+
+        <!-- MICROWAVE ASSETS (From Microwave) -->
+        <mesh name="micro_Base"      file="{MICRO_FOLDER}Base.stl"      scale="0.001 0.001 0.001"/>
+        <mesh name="micro_BaseJoint" file="{MICRO_FOLDER}BaseJoint.stl" scale="0.001 0.001 0.001"/>
+    </asset>
+
+    <worldbody>
+        <!-- Lighting & Floor -->
+        <light pos="0 0 2" dir="0 0 -1" directional="true" castshadow="true"/>
+        <light pos="1 1 2" dir="-1 -1 -1" diffuse="0.5 0.5 0.5"/>
+        <geom name="floor" size="2 2 .05" type="plane" material="grid" condim="3"/>
+
+        <!-- TARGET MARKER (Green Sphere for IK) -->
+        <body name="target" pos="0.4 0 0.3" mocap="true">
+            <geom type="sphere" size="0.02" rgba="0 1 0 0.5" contype="0" conaffinity="0"/>
+            <site name="target_site" rgba="0 1 0 1"/>
+        </body>
+
+        <!-- MICROWAVE (Positioned in front of robot) -->
+        <body name="Microwave" pos="0.6 0 0" euler="0 0 -1.5708">
+            <geom type="mesh" mesh="micro_Base" rgba="0.8 0.8 0.8 1"/>
+            <body name="Microwave_Door" pos="0 0 0">
+                <joint name="door_joint" type="hinge" axis="0 0 1" pos="-0.377 0 0.165"/>
+                <geom type="mesh" mesh="micro_BaseJoint" rgba="0.2 0.2 0.2 1"/>
+            </body>
+        </body>
+
+        <!-- NEW UR3 ROBOT (Kinematics from UR3.xml) -->
+        <body name="ur3_base" pos="0 0 0">
+            <geom type="mesh" mesh="base_link-v3" rgba="0.7 0.7 0.7 1"/>
+            <inertial mass="4.81" pos="-5e-05 -0.016 0.003" fullinertia="0.006 0.006 0.008 0 0 0"/>
+            
+            <body name="link1" pos="0.00017 -0.0211 0.1046" euler="1.571 0 0">
+                <joint name="shoulder_pan" axis="0 1 0" pos="-0.0001 -0.0608 -0.004"/>
+                <geom type="mesh" mesh="link1-v4" rgba="0.7 0.7 0.7 1"/>
+                <inertial mass="0.31" pos="-0.0002 0.049 -0.009" fullinertia="0.0002 0.0004 0.0002 0 0 0"/>
+
+                <body name="link2" pos="0.0062 0.122 0.1108" euler="-1.57 0 -3.14">
+                    <joint name="shoulder_lift" axis="0 1 0" pos="0.006 -0.0608 -0.117"/>
+                    <geom type="mesh" mesh="link2-v3" rgba="0.7 0.7 0.7 1"/>
+                    <inertial mass="8.39" pos="0.003 0.006 0.052" fullinertia="0.051 0.052 0.007 0 0 0"/>
+
+                    <body name="link3" pos="0.1004 0.0052 0.2402" euler="-1.572 0.059 1.602">
+                        <joint name="elbow" axis="-0.03 -0.99 0.048" pos="0.115 0.048 -0.003"/>
+                        <geom type="mesh" mesh="link3-v3" rgba="0.7 0.7 0.7 1"/>
+                        <inertial mass="7.52" pos="0.002 0.006 0.001" fullinertia="0.005 0.055 0.057 0 0 0"/>
+
+                        <body name="link4" pos="-0.0938 0.0851 0.0067" euler="-0.001 0 -0.079">
+                            <joint name="wrist_1" axis="-0.04 0.99 0.0003" pos="-0.0008 -0.038 -0.001"/>
+                            <geom type="mesh" mesh="link4-v3" rgba="0.7 0.7 0.7 1"/>
+                            <inertial mass="2.54" pos="-0.001 0.0002 -0.001" fullinertia="0.001 0.002 0.002 0 0 0"/>
+
+                            <body name="link5" pos="-0.0821 0.00004 -0.0009" euler="-2.62 1.49 2.62">
+                                <joint name="wrist_2" axis="0.048 -0.007 -0.99" pos="-0.002 0.002 0.036"/>
+                                <geom type="mesh" mesh="link5-v3" rgba="0.7 0.7 0.7 1"/>
+                                <inertial mass="2.54" pos="-0.0009 0.001 -0.001" fullinertia="0.002 0.001 0.002 0 0 0"/>
+
+                                <body name="link6" pos="0.0003 0.0626 -0.0087" euler="1.61 0.13 2.70">
+                                    <joint name="wrist_3" axis="-0.14 -0.01 -0.98" pos="0.003 -0.0001 0.017"/>
+                                    <geom type="mesh" mesh="link6-v3" rgba="0.7 0.7 0.7 1"/>
+                                    
+                                    <!-- CRITICAL: The End Effector Site for your Python Script -->
+                                    <site name="ee_site" pos="0 0.05 0" size="0.01" rgba="1 0 0 1"/>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+</mujoco>
+"""
+
+with open(OUTPUT_FILE, "w") as f:
+    f.write(xml_content)
+
+print(f"✅ Generated {OUTPUT_FILE} successfully!")

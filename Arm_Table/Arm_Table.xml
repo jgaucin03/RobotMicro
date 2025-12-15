@@ -1,0 +1,8 @@
+<mujoco model="Arm_Table">
+    <compiler angle="radian" />
+    <asset />
+    <worldbody>
+        <light directional="true" pos="-0.5 0.5 3" dir="0 0 -1" />
+        <geom pos="0 0 0" size="1 1 1" type="plane" rgba="1 0.83 0.61 0.5" />
+    </worldbody>
+</mujoco>
